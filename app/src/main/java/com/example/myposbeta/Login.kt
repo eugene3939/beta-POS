@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.myposbeta.databinding.ActivityLoginBinding
+import com.example.myposbeta.dbHelper.ProductDBHelper
+import com.example.myposbeta.dbHelper.TranslationDBHelper
 import com.example.myposbeta.dbHelper.UserDBHelper
 
 class Login : AppCompatActivity() {
@@ -24,8 +26,8 @@ class Login : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        createTransactionDB() //創建TransactionDB
-//        createProductDB() //創建ProductDB
+        createTransactionDB() //創建TransactionDB
+        createProductDB() //創建ProductDB
         createUserDB()  //創建UserDB
 
         // 登入按鈕
@@ -91,6 +93,27 @@ class Login : AppCompatActivity() {
         )
         createDatabase(dbHelper, "UserTable", defaultUserData)
     }
+
+    private fun createProductDB() {
+        val dbHelper = ProductDBHelper(this)
+        val defaultProductData = listOf(
+            "INSERT INTO ProductTable(pName, pPrice, pNumber,pPhoto) VALUES('Apple', 50, 100, '0');",
+            "INSERT INTO ProductTable(pName, pPrice, pNumber,pPhoto) VALUES('Pineapple', 100, 80, '0');",
+            "INSERT INTO ProductTable(pName, pPrice, pNumber,pPhoto) VALUES('Snapple', 200, 60, '0');"
+        )
+        createDatabase(dbHelper, "ProductTable", defaultProductData)
+    }
+
+    private fun createTransactionDB() {
+        val dbHelper = TranslationDBHelper(this)
+        val defaultTransactionData = listOf(
+            "INSERT INTO TransactionTable(tDate, tDescription) VALUES('2018-12-10','0');",
+            "INSERT INTO TransactionTable(tDate, tDescription) VALUES('2018-12-11','0');",
+            "INSERT INTO TransactionTable(tDate, tDescription) VALUES('2018-12-12','0');"
+        )
+        createDatabase(dbHelper, "TransactionTable", defaultTransactionData)
+    }
+
 
     override fun onDestroy() {
         // 在 Activity 銷毀時關閉資料庫連接

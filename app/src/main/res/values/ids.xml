@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="edt_password" type="id" />
+    <item name="edt_account" type="id" />
+</resources>
